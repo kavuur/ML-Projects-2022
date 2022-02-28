@@ -1,0 +1,91 @@
+{% extends "farmer/dashboard.html"%}
+{% block dashboard_content %}
+    <div >
+        <div class="container p-3">
+            <div class="card m-2 shadow">
+                <div class="card-body text-13">
+                    <form method=post action="{{ url_for("farmer.save_profile") }}" role="form">
+                        <h5 class="p-2">Edit Profile</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Name</label>
+                                    <div class=""><input type="text" class="form-control form-control-sm" name="username" value="{{ user }}" required></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Email</label>
+                                    <div class=""><input type="email" class="form-control form-control-sm" name="email" value="{{ user.email }}" required></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Phone</label>
+                                    <div class=""><input type="text" class="form-control form-control-sm" name="phone" value="{{ user.phone }}" required></div>
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Address</label>
+                                    <div class=""><input type="text" class="form-control form-control-sm" name="street" value="{{ user.location[0].street }}" required></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">City</label>
+                                    <div class=""><input type="text" class="form-control form-control-sm" name="city" value="{{ user.location[0].city }}" required></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Country</label>
+                                    <div class=""><input type="text" class="form-control form-control-sm" name="country" value="{{ user.location[0].country }}" required></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-2">
+                            <button type="submit" class="btn btn-sm bg-green text-white text-13">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card m-1 shadow">
+                <div class="card-body text-13">
+                    <form class="" role="form" method=post action="{{ url_for("farmer.change_password") }}">
+                        <h5 class="">Change Password</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Old Password</label>
+                                    <div class=""><input type="password" class="form-control form-control-sm" name="old_password" required></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">New Password</label>
+                                    <div class=""><input type="password" class="form-control form-control-sm" name="new_password" required></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group m-1">
+                                    <label class="font-weight7">Password Confirmation</label>
+                                    <div class=""><input type="password" class="form-control form-control-sm" name="password_confirm" required></div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="m-2">
+                            <button type="submit" class="btn btn-sm bg-green text-white text-13">Save Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

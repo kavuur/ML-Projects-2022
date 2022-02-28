@@ -1,0 +1,34 @@
+{% extends "farmer/dashboard.html" %}
+{% block dashboard_content %}
+    <div class="container-fluid p-3">
+        <div class="">
+            {% for history in diagnosis_history %}
+            <div class="card col-11 m-2 rounded-0 shadow" >
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div><span class="text-13 font-weight6 m-2 text-green">Created At: </span><span class="text-13 font-weight5 m-2">{{ history.created_at }}</span> </div>
+                        <div>
+                            <a class="text-white text-10 shadow badge bg-alert" href="{{ url_for("farmer.delete_history", id=history.id) }}" >Remove</a>
+                        </div>
+                    </div>
+                    <div><span class="text-13 font-weight6 m-2 text-green">Disease: </span><span class="text-13 font-weight5 m-2">{{ f(history.disease) }}</span></div>
+                    <div class="d-flex justify-content-between m-2">
+                        <div >
+                            <span class="text-13 font-weight6 text-green">Prevention</span>
+                            <p class="text-12 " style="height: 120px;overflow-y: scroll!important;">
+                                {{ remidies[history.disease].remidy }}
+                            </p>
+                        </div>
+                        <div>
+                            <div style="height: 100px; width: 100px; margin-top:20px">
+                                <img class="img-thumbnail" src="{{url_for('static',filename = 'uploads/'+ history.image_url) }}">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

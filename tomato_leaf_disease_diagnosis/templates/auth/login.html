@@ -1,0 +1,49 @@
+{% extends "auth/auth_base.html" %}
+{% block auth_body %}
+    {{ super() }}
+<section class="container">
+
+    <div class="card rounded-0 border-r5">
+        <div class="card-body">
+            <h3 class="card-title font-weight9  mb-3">Sign-In</h3>
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,msg in messages %}
+                        <div class="card bg-alert rounded-0" style="margin-bottom: 13px">
+                            <div class="card-body p-1 text-white">
+                                <p class="text-13 font-weight6 m-1">{{ msg }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form action="{{ url_for('main.login_post') }}" method=post style="height: 350px; width: 360px">
+
+                    <div class="form-group form-group-md mb-2">
+                        <label class="text-13 font-weight6 mb-2">Email</label>
+                        <div class="">
+                            <input class="text-13 form-control rounded-0 col-12" type="text" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-md mb-3">
+                        <label class="text-13 font-weight6 mb-2">Password</label>
+                         <div class="">
+                            <input class="text-13 form-control rounded-0 col-12" type="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm d-flex justify-content-between" style="margin-top:20px">
+                        <label class="text-12 font-weight6 form-check-label" >Keep me signed-in</label>
+                        <div><input class="form-check-input", style="margin-right:5px!important " type="checkbox" name="remember" ></div>
+                    </div>
+                    <div class="">
+                        <button type="submit"  style="padding-top:5.8px!important ; padding-bottom:5.8px!important"
+                                class="btn btn-sm login-in-btn text-13 rounded-0 font-weight7 w-100 bg-green text-white border-r5">Sign-In</button>
+                    </div>
+                </form>
+                <p class="m-1 font-weight5 text-13">Not yet signed up? Please <a href="/register">register for an account</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

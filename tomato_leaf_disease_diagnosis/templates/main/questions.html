@@ -1,0 +1,73 @@
+{% extends "main/index.html" %}
+{% block dashboard_content %}
+    <div class="">
+        <div class="row">
+            <div class="col-md-9 p-1">
+                <div class="container-fluid ">
+                    <div class="border-bottom">
+                         <div class="d-flex justify-content-between">
+                        <h4 class="font-weight5">All Questions</h4>
+                        <div>
+                            {% if current_user.is_authenticate and current_user.roles[0]!='admin' %}
+                                <a href="/farmer/question/ask" class="btn btn-sm bg-green text-white text-13"> Ask Question</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between p-1 pb-2">
+                        <span class="text-16">
+                                {{ qsts | length }} questions
+                        </span>
+                    </div>
+                    </div>
+
+                    {% for post in qsts %}
+                    <div class="card post p-1" style="border:0;border-bottom: 0.3px solid #efeded!important;">
+                        <div class="card-body row p-1">
+                            <div class="col-md-1 p-1">
+                                <div class="d-flex flex-column">
+                                    <span class="text-11 font-weight7 text-center">{{ post.no_comments | length }}</span>
+                                    <span class="text-9 text-center">answers</span>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="text-11 font-weight7 text-center">0</span>
+                                    <span class="text-9 text-center">views</span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-10 p-1">
+                                <h6 class="text-blue"><a href="{{url_for('main.question',id=post.id) }}">{{ post.title }}</a></h6>
+                                <div class="title text-14 font-weight6 ">{{ post.post }}</div>
+                                <p class="body text-12">{{ post.body }}</p>
+                            </div>
+                            <div class="col-md-1 p-1">
+                                <div class="d-flex flex-column justify-content-center text-center">
+                                    <span class="text-9 text-secondary text-center">{{ post.created_at }}</span>
+                                    <div class="text-center" style="height: 50px; width: 50px">
+                                        <h4 class="rounded p-1 font-weight7 text-green">{{ post.user_profile }}</h4>
+                                    </div>
+                                    <span class="text-9 text-center badge bg-green text-white">{{ post.user }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="col-md-3 p-1">
+               <div class="">
+                    <div class="card" style="height: 400px; background-color: #fdebe2">
+                    <div class="card-header">
+                        <span class="card-title text-13 font-weight6 text-secondary"> Hot topics</span>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

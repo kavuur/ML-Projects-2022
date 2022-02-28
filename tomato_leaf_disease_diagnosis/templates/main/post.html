@@ -1,0 +1,96 @@
+{% extends "main/index.html" %}
+{% block dashboard_content %}
+<div>
+    <div class="row">
+        <div class="col-md-10">
+            <div container>
+                <div class="p-2 pt-3 border-bottom">
+                    <h4 class="font-weight6">{{ post.title }}</h4>
+                    <div class="d-flex justify-content-between">
+                         <p class=" text-12"><span class="text-secondary">Asked on</span> {{ post.created_at }}</p>
+                        <div class="">
+                            <a href="/user" class="text-10  shadow badge text-white bg-green ">{{ user.username }}</a>
+                            <!--<button class="p-3 pt-1  pb-1 text-uppercase btn btn-sm text-light font-weight7 bg-green text-13" > <span class="text-12">{{ user.username[0] }}</span> </button>
+-->
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div class="card border-0 rounded-0" style="min-height: 100px; background-color: #F6F6F6!important;">
+                        <div class="card-body">
+                            <p class="text-13">{{ post.body }}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="p-3 border-bottom">
+                    <h4>Comments</h4>
+                </div>
+                {% for cmt in comments %}
+                    <div class="row">
+                        <div class="col-md-1">
+
+                            {% if current_user.is_authenticated and current_user.roles[0]=='admin' %}
+                                <form  action="{{ url_for('admin.tick_answer') }}" method=post style="margin-top: 50px" class="text-center">
+                                    <input class="d-none" value="{{ cmt.comment.id }}" name="post_id">
+                                    <input class="d-none" type="checkbox" name="check_answer" {{ cmt.comment.ticked }}>
+                                    <button class="btn btn-default " type="submit" ><input class="" type="checkbox" name="check_answer" {{ cmt.comment.ticked }}><small class="text-10 text-success font-weight6 badge shadow">save</small></button>
+                                </form>
+                            {% endif %}
+                        {% if  current_user.roles[0]!='admin' and cmt.comment.ticked=="checked" %}
+                            <div style="margin-top: 50px" class="text-center"><i class="fa fa-check text-success"></i></div>
+                        {% endif %}
+                        </div>
+                        <div class="p-2 border-bottom col-md-11">
+                            <div class="card border-0 rounded-0" style="min-height: 100px; background-color: #F6F6F6!important;">
+                                <div class="card-body">
+                                    <p class="text-13">{{ cmt.comment.comment }}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <div class="d-flex flex-row">
+                                    <span class="text-12 p-1 pt-2">Answered on</span>
+                                    <p class="text-12 text-secondary p-1 pt-2">{{ cmt.comment.created_at }}</p>
+                                    <div>
+                                        <a class="text-10  shadow badge text-white" style="margin-left: 15px; background-color: #B75301">{{ cmt.user.username }}</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+                {% if current_user.is_authenticated and current_user.roles[0].name!='admin' %}
+                <div class="p-2" >
+                    <div class="p-1">
+                        <h4>Your Answer</h4>
+                    </div>
+                    <form action="{{ url_for('farmer.comment') }}" method=post>
+                        <textarea style="min-height: 120px" class="form-control form-control-sm" name="comment"></textarea>
+                        <input class="d-none" value="{{ post.id }}" name="id">
+                        <div class="p-1 pt-2">
+                            {% if current_user.is_authenticated %}
+                                <button type="submit" class="btn bg-green btn-sm text-12 text-white">Post Your Answer</button>
+                            {% else %}
+                                <div class=" d-flex flex-row" >
+                                    <a style="margin-right: 5px" href="/login" class="btn btn-sm btn-light text-12 p-2 font-weight4 pt-1 pb-1 border-green text-green" >Log in</a>
+                                    <a href="/register" class="btn btn-sm bg-green text-12 p-2 pt-1 text-white font-weight4 pb-1">Sign up</a>
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+                {%  endif %}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="p-2 pt-4">
+                <a href="/farmer/question/ask" class="btn btn-sm bg-brown"><span class="text-white text-13">Ask Question</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

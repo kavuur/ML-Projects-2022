@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="main-wrap index">
+    <input id="slide-sidebar" type="checkbox" role="button" />
+        <label for="slide-sidebar" class="toggle-label"><span class="fa-stack fa-md "><i class="fa fa-th-list fa-stack-1x "></i></span></label>
+    <div class="sidebar position-fixed ">
+        <div class="container p-2 pb-3 pt-2 border-bottom">
+            <a class="text-center heading text-orange font-weight9" href="/admin">
+                <span style="margin-left: 10px!important;"></span><span class="text-14" >HOME</span>
+            </a>
+        </div>
+        <div class="">
+            <span class="text-uppercase font-weight4 text-secondary text-12" style="margin-left:10px">Public</span>
+        </div>
+        <div class="">
+            <ul class=" list-unstyled text-13">
+            <li class=""><a class="navbar-link text-black" href="/questions">
+                 <span class="fa-stack fa-lg font-weight6"><i class="fa fa-globe fa-stack-1x "></i></span>
+                <span class="text-13 font-weight5">Questions</span></a>
+                <ul class="text-13 m-1 ml-3">
+                    <li class="p-1"><a class="navbar-link text-black" href="/admin/manage-patients">Tags</a></li>
+                    <li class="p-1"><a class="navbar-link text-black" href="/admin/manage-patients">Users</a></li>
+                </ul>
+            </li>
+        </ul>
+            <div class="">
+            <span class="text-uppercase font-weight4 text-secondary text-12" style="margin-left:10px">TEAM</span>
+        </div>
+            <div class="card  rounded-0 " style="height: 350px; border-right:0">
+                <div class="card-body">
+                    <p class="text-12 text-secondary">
+                        <b>Portal for Farmers</b> – Collaborate and share knowledge with other farmers
+                    </p>
+                    <div class="" style="height: 150px;width: 100%">
+                        <img src="{{url_for('static',filename = 'images/social-media-g47bd56e84_1920.png')}}">
+                    </div>
+                    <div class="p-1">
+                        <button class="btn btn-sm bg-green text-12 text-white font-weight6 w-100">----------------</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio " style="border-top: 2px solid #111111; border-left:1px solid #bac3cb ">
+        <nav class="navbar navbar-sm navbar-expand-md navbar-light shadow p-1 " style="border-top: 3px solid #FF8000; background-color: #f2f2f2">
+            <div class="container-fluid">
+                <a class="navbar-brand text-orange font-weight9 position-absolute" href="#" style="height: 30px; width: 30px; top: 0px;"><img src="images/tomato(2).png"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto font-weight5 text-13 text-secondary " style="margin-left: 70px">
+                        <li class="nav-item  " style="margin-right: 18px">
+                            <a class="nav-link text-black" href="/farmer/diagnosis">
+                                <i class="fa fa-medkit"></i> Diagnose Diseases</a>
+                        </li>
+                        <li class="nav-item " style="margin-right: 32px">
+                          <a class="nav-link  pr-2 text-black text-13" href="/questions"><i class="fa fa-globe"></i>
+                              Questions</a>
+                        </li>
+                         <li class="nav-item  " style="margin-right: 18px">
+                            <a class="nav-link text-black text-13" href="/farmer/question/ask">
+                                 <i class="fa fa-question-circle"></i>
+                                Ask Question</a>
+                        </li>
+
+                    </ul>
+                    <div class="search-input-box" style="min-width: 45%">
+                        <form class="form-inline w-100">
+                            <input class="form-control w-100 form-control-sm " placeholder="Search...">
+                        </form>
+                    </div>
+                    <div class="navbar-nav ms-auto ">
+                        {% if current_user.is_authenticated %}
+                            <div style="margin-right: 5px">
+                                <a href="/farmer/profile" class="p-3 pt-1  pb-1 text-uppercase btn btn-sm text-light font-weight7 bg-green text-13">{{ current_user.username[0] }}</a></div>
+                             <div><a class="btn btn-sm btn-light text-13 p-2 font-weight4 pt-1 pb-1 border-green text-green" href="{{ url_for('main.logout') }}" >Logout</a></div>
+                        {% else %}
+                            <div style="margin-right: 5px"><a href="/login" class="btn btn-sm btn-light text-13 p-2 font-weight5 pt-1 pb-1 border-green text-green" >Log in</a></div>
+                            <div><a href="/register" class="btn btn-sm bg-green text-13 p-2 pt-1 text-white font-weight5 pb-1">Sign up</a></div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard container-fluid p-4 bg-white">
+           <div class="pt-1">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,msg in messages %}
+                        <div class="card bg-{{ category }}">
+                            <div class="card-body p-1 text-white">
+                                <p class="text-13 font-weight6 m-1">{{ msg }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block dashboard_content %}
+                    <div class="card ml-5 mr-5 m-1" style="height: 500px; background-color: #303438">
+                        <div class="card-body p-4">
+                                <div class="d-flex justify-content-center">
+                                    <div class="card" style="height: 250px;width: 450px; margin-right: 30px;background-color: #FEE3CD ">
+                                        <div class="card-body  text-center">
+                                                 <div class="d-flex justify-content-center">
+                                                <div style="height: 80px; width: 80px" class="text-center" ><img src="images/collaboration.png"></div>
+                                            </div>
+                                            <h5 class="font-weight2 text-black p-3 pt-1 text-16">
+                                                Find the best answer to your tomato disease question, help others answer theirs
+                                            </h5>
+                                            <div class="text-center">
+                                                <a href="/login" class="btn btn-sm bg-orange font-weight6 text-14 text-white m-1 mt-2" style="padding-left: 30px!important; padding-right: 30px!important">Join the Community</a>
+                                                <p class="text-13 text-black font-weight4 m-1 mt-3">or
+                                                    <a href="/questions" class="text-black" style="text-decoration: underline!important;">search content</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card " style="height: 250px; width: 450px; ;background-color: #dafecd">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-center">
+                                                <div style="height: 70px; width: 70px" class="text-center" ><img src="images/diagnosis.png"></div>
+                                            </div>
+                                             <h5 class="font-weight2 text-black p-3 pt-1 pb-1 text-center text-16 ">
+                                                Free instant tomato diseases detection, control, and prevention.
+                                            </h5>
+                                            <div class="text-center">
+                                                <div class="text-center ">
+                                                    <div class="get-started "><span></span></div>
+                                                    <span class="text-13 font-weight6">Get Started</span>
+                                                    <div  class="get-started-right"><span></span></div>
+                                                </div>
+                                                <a href="/farmer/diagnosis" class="btn btn-sm bg-green font-weight6 text-14 text-white  m-1 mt-2" style="padding-left: 30px!important; padding-right: 30px!important">Diagnose Now</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="p-2 pt-5 d-flex justify-content-center">
+                                <div class="" style="width: 850px">
+                                    <h1 class="font-weight9 text-white text-center d-5" style="font-family: Georgia, serif;">
+                                        Believe in the <span class="text-orange">future of agriculture</span>, with a faith born not of words but of deeds
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <div class="d-flex justify-content-between">
+                            <div style="height: 80px;width: 80px"><img src="images/lock-icon-29054.png"></div>
+                            <div class=" p-1 pt-4">
+                                <span class="text-15  font-weight6">Build a <b>private community</b> to share crop diseases management and diagnosis knowledge!</span>
+                            </div>
+                            <div class=" p-1 pt-4"><button class="btn border-green border-2 text-green font-weight6">-----------------</button></div>
+                        </div>
+                    </div>
+
+                {% endblock %}
+           </div>
+        </div>
+     <div class="footer p-5 pb-3 bg-dark text-white" style="height: 200px">
+         <div class="row">
+             <div class="col-md-2">
+                <div style="height:100px!important; width: 100px!important;">
+                       <img src="{{url_for('static',filename = 'images/tomato(2).png')}}">
+                </div>
+             </div>
+             <div class="col-md-3">
+                 <div >
+                   <h6>Company</h6>
+                     <ul class="list-unstyled text-12 text-white">
+                        <li>About</li>
+                        <li>Contact Us</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms and Conditions</li>
+                    </ul>
+                </div>
+             </div>
+             <div class="col-md-3">
+                     <div >
+                       <h6>Company</h6>
+                         <ul class="list-unstyled text-12 text-white">
+                            <li>Questions</li>
+                            <li>Teams</li>
+                            <li>Disease Diagnosis
+                             <li>Help</li>
+                        </ul>
+                    </div>
+             </div>
+             <div class="col-md-4">
+                <nav class="navbar navbar-sm navbar-expand-md">
+                    <ul class="navbar-nav list-unstyled text-12 text-white">
+                        <li class="m-2 mr-4">Blog</li>
+                        <li class="m-2 mr-4">Facebook</li>
+                        <li class="m-2 mr-4">Twitter</li>
+                        <li class="m-2 mr-4">Instagram</li>
+                        <li class="m-2 mr-4">Linked In</li>
+                    </ul>
+                </nav>
+             </div>
+         </div>
+     </div>
+
+    </div>
+</div>
+{% endblock %}

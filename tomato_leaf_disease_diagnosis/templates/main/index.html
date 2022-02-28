@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="farmer-dashboard">
+        <nav class="navbar navbar-sm navbar-expand-md navbar-light shadow p-1 fixed-top"
+             style="border-top: 3px solid #FF8000; background-color: #f2f2f2; position: sticky;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-orange font-weight9 position-absolute" href="#" style="height: 30px; width: 30px; top: 0px;"><img src="{{url_for('static',filename = 'images/tomato(2).png')}}"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto font-weight5 text-13 text-secondary " style="margin-left: 70px">
+                        {% if current_user.roles[0]!='admin' %}
+                        <li class="nav-item active " style="margin-right: 18px">
+                            <a class="nav-link text-black" href="/farmer/diagnosis">
+                                <i class="fa fa-medkit"></i> Diagnose Diseases</a>
+                        </li>
+                    {% endif %}
+                    {% if current_user.roles[0]=='admin' %}
+                        <li class="nav-item  " style="margin-right: 18px">
+                            <a class="nav-link text-black" href="/admin">
+                                <i class="fa fa-tachometer"></i> Dashboard</a>
+                        </li>
+                    {% endif %}
+                        <li class="nav-item " style="margin-right: 32px">
+                          <a class="nav-link  pr-2 text-black text-13" href="/questions"><i class="fa fa-globe"></i>
+                              Questions</a>
+                        </li>
+                        {% if current_user.roles[0]!='admin' %}
+                         <li class="nav-item  " style="margin-right: 18px">
+                            <a class="nav-link text-black text-13" href="/farmer/question/ask">
+                                 <i class="fa fa-question-circle"></i>
+                                Ask Question</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                <div style="width: 50%">
+                    <form class="form-inline w-100">
+                        <input class="form-control w-100 form-control-sm " placeholder="Search...">
+                    </form>
+                </div>
+                <div class="navbar-nav ms-auto ">
+                    {% if current_user.is_authenticated %}
+                        <div style="margin-right: 5px">
+                        <button class="p-3 pt-1  pb-1 text-uppercase btn btn-sm text-light font-weight7 bg-green text-13">{{ current_user.username[0] }}</button>
+                         <a class="btn btn-sm btn-light text-13 p-2 font-weight4 pt-1 pb-1 border-green text-green" href="{{ url_for('main.logout') }}" >Logout</a></div>
+                       </div>
+                    {% else %}
+                    <div style="margin-right: 5px">
+                        <a href="/login" class="btn btn-sm btn-light text-13 p-2 font-weight4 pt-1 pb-1 border-green text-green" >Log in</a></div>
+                    <div><a href="/register" class="btn btn-sm bg-green text-13 p-2 pt-1 text-white font-weight4 pb-1">Sign up</a></div>
+                    {% endif %}
+                </div>
+            </div>
+    </nav>
+        <div>
+         <div class="row">
+            <div class="col-md-2 shadow" style="border-right: 1.5px solid #dedfe1; background-color: #F2F2F2;">
+                <div class="w-100 fixed-top" style="position: sticky; top: 3em;">
+                <div class="container p-2 pb-3 pt-2 border-bottom">
+                    <a class="text-center heading text-brown font-weight9" href="/admin">
+                        <span style="margin-left: 10px!important;"></span><span class="text-14" >HOME</span>
+                    </a>
+                </div>
+
+                <div class="">
+                    <span class="text-uppercase font-weight4 text-secondary text-12" style="margin-left:10px">Public</span>
+                </div>
+
+                <div class="">
+                    <ul class=" list-unstyled text-13">
+                    <li class=""><a class="navbar-link text-black" href="/questions">
+                         <span class="fa-stack fa-lg font-weight6"><i class="fa fa-globe fa-stack-1x "></i></span>
+                        <span class="text-13 font-weight5">Questions</span></a>
+                        <ul class="text-13 m-1 ml-3">
+                            <li class="p-1"><a class="navbar-link text-black" >Tags</a></li>
+                            <li class="p-1"><a class="navbar-link text-black" href="/users">Users</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                    <div class="">
+                        <span class="text-uppercase font-weight4 text-secondary text-12" style="margin-left:10px">TEAM</span>
+                    </div>
+                    <div class="card  rounded-0 border-bottom " style="height: 350px; border-right:0">
+                        <div class="card-body">
+                            <p class="text-12 text-secondary">
+                                <b>Farmers Community</b> – Collaborate and share knowledge with other farmers
+                            </p>
+                            <div class="" style="height: 150px;width: 100%">
+                                <img src="{{url_for('static',filename = 'images/social-media-g47bd56e84_1920.png')}}">
+                            </div>
+                            <div class="p-1">
+                                <button class="btn btn-sm bg-green text-12 text-white font-weight6 w-100">---------------</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-10 p-1">
+                <div class=" container-fluid p-1  bg-white">
+                    <div class="pt-1">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category,msg in messages %}
+                                <div class="card bg-{{ category }}">
+                                    <div class="card-body p-1 text-white">
+                                        <p class="text-13 font-weight6 m-1">{{ msg }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        {% block dashboard_content %} {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="footer-farmer p-5 pb-3 bg-dark text-white" style="height: 200px">
+             <div class="row ">
+                 <div class="col-md-2">
+                    <div style="height:100px!important; width: 100px!important;">
+                           <img src="{{url_for('static',filename = 'images/tomato(2).png')}}">
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                     <div >
+                       <h6 class="">Company</h6>
+                         <ul class="list-unstyled text-12" style="color:#838C95">
+                            <li>About</li>
+                            <li>Contact Us</li>
+                            <li>Privacy Policy</li>
+                            <li>Terms and Conditions</li>
+                        </ul>
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                         <div >
+                           <h6>Company</h6>
+                             <ul class="list-unstyled text-12" style="color:#838C95">
+                                <li>Questions</li>
+                                <li>Teams</li>
+                                <li>Disease Diagnosis
+                                 <li>Help</li>
+                            </ul>
+                        </div>
+                 </div>
+                 <div class="col-md-4">
+                    <nav class="navbar navbar-sm navbar-expand-md">
+                        <ul class="navbar-nav list-unstyled text-12" style="color:#838C95">
+                            <li class="m-2 mr-4">Blog</li>
+                            <li class="m-2 mr-4">Facebook</li>
+                            <li class="m-2 mr-4">Twitter</li>
+                            <li class="m-2 mr-4">Instagram</li>
+                            <li class="m-2 mr-4">Linked In</li>
+                        </ul>
+                    </nav>
+                 </div>
+             </div>
+         </div>
+    </div>
+
+{% endblock %}

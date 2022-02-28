@@ -1,0 +1,86 @@
+{% extends "farmer/dashboard.html" %}
+{% block dashboard_content %}
+<div class="" style="background-color: #f2f2f2">
+        <div class="container-fluid p-3 pt-1">
+     <div class="p-3" >
+                 <div class="d-flex justify-content-between">
+                <h5 class="font-weight6 ">Ask Question</h5>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card rounded-0 p-3 m-1" >
+        <div class="card-body">
+            <form action="{{ url_for('farmer.post_question') }}" method=post>
+                <div class="form-group  mb-4">
+                    <h6 class="font-weight6 text-14 p-1">Title</h6>
+                    <small class="text-12 p-1">Be specific and imagine you’re asking a question to another person</small>
+                    <div class="form-group">
+                        <input class="form-control " name="title"  style="border-color: #BABFC4!important;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 class="font-weight6 text-14 p-1">Body</h6>
+                    <small class="text-12 p-1">Include all the information someone would need to answer your question</small>
+                    <textarea class="form-control form-control-sm" name="body" style="min-height: 170px; border-color: #BABFC4!important;">
+                    </textarea>
+                </div>
+                <div class="m-2 mt-3">
+                    <button class="btn btn-sm text-13 bg-green rounded-0  text-white ">Post your question</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                         Steps: Draft your question
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-12">The community is here to help you with specific tomato disease problems, or tomato farming problems. </p>
+                    <p class="text-12">Avoid asking opinion-based questions.</p>
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h6 class="accordion-header rounded-0 p-2" id="panelsStayOpen-headingOne">
+      <button class="accordion-button btn-sm text-13" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <strong class="text-green">1.</strong> Summarize the problem
+      </button>
+    </h6>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+                  <ul class=" text-12">
+                      <li class="m-2">Include details about your goal</li>
+                      <li class="m-2">Describe expected and actual results</li>
+                      <li class="m-2">Include any challenges</li>
+                  </ul>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header rounded-0 p-2" id="panelsStayOpen-headingTwo">
+      <button class="accordion-button btn-sm collapsed text-13" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+        <strong class="text-green text-13">2.</strong>Describe what you’ve tried
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+      <div class="accordion-body">
+          <p class="text-12">
+             Show what you’ve tried and tell us what you found (on this site or elsewhere) and
+          why it didn’t meet your needs. You can get better answers when you provide research.
+         </p>
+      </div>
+    </div>
+  </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

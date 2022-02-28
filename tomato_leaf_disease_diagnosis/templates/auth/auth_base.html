@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block body %}
+   <div class="bg_auth">
+         <div class=" mt-1 mb-3">
+    <div class="container p-5" style="min-height: 400px; ">
+         <div class="card rounded-0" style="background-color: #e8fee9">
+             <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="p-4">
+                            <h6 class="font-weight7 text-green text-shadow1 pt-3 text-center text-uppercase"
+                            style="text-shadow:  1px -2px -2px #111111 ">Centralised Portal for tomato DISEASE DIAGNOSIS AND MANAGEMENT</h6>
+                        </div>
+                        <div class="bg-auth rounded-0 p" style="height: 350px"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container">
+                            {% block auth_body %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+             </div>
+         </div>
+    </div>
+</div>
+   </div>
+{%  endblock body %}

@@ -1,0 +1,52 @@
+{% extends "farmer/dashboard.html" %}
+{% block dashboard_content %}
+<div class="container-fluid p-3 pt-1">
+    <div class="card rounded-0 p-3 m-1" style=" border: 1.5px solid #c96703">
+        <div class="card-body">
+            <form action="{{ url_for('farmer.detect') }}" enctype=multipart/form-data role="form" method=post id="formDiagnose">
+                <div class="input-group input-group-sm">
+                    <label class="m-2 text-13 font-weight9 ">Upload Image</label>
+                    <input class="form-control form-control-sm m-2" name="file" type="file">
+                        <button type="submit" id="btnDiagnose" class="btn btn-sm bg-green rounded-0 text-13 m-2 text-white" style="padding-right: 30px; padding-left: 30px">Diagnose
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card rounded-0 m-1 mt-3" style="height: 350px; border: 1.5px solid #c96703">
+        <div class="card-header" style="background-color: #c96703">
+            <h6 class="card-title text-13 font-weight6 text-white">Tomato Diagnosis Result</h6>
+        </div>
+        <div class="card-body ">
+                <span class="text-13 font-weight6 p-2">Disease Name: </span> <span class="text-13">{{ disease }}</span>
+                <div class="text-13 font-weight6 p-2">Prevention</div>
+
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="text-12 p-2" style="height: 150px;overflow-y: scroll!important;">{{ remidy["remidy"] }}</p>
+                </div>
+                <div>
+                     <div style="height:150px; width: 150px; margin-top:10px">
+                         {% if image_url!=None%}
+                        <img class="img-thumbnail"  style="width: 100%;height: auto" src="{{url_for('static',filename = 'uploads/'+image_url)}}">
+                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+    $(document).ready(function() {
+        $("#btnDiagnose").click(function() {
+            // disable button
+            $(this).prop("disabled", true);
+            // add spinner to button
+            $(this).html(
+            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Processing...`
+            );
+            $("#formDiagnose").submit();
+        });
+    });
+</script>
+{% endblock %}
