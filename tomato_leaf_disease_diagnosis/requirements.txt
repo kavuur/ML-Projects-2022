@@ -6,3 +6,5 @@ mysqlclient
 email_validator
 Flask-Bcrypt
 numpy
+opencv-python
+tensorflow-cpu
