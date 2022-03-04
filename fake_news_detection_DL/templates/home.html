@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>veriNews News Engine</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}">
+  
+</head>
+
+<body>
+ <div class="login">
+     <h1>veriNews</h1>
+     	<h4>Deep Learning News Engine</h4>
+     <h5>Classify reliable and unreliable news content</h5>
+
+     <!-- Form to enter new data for predictions  -->
+    <form action="{{ url_for('predict')}}"method="POST">
+
+      <textarea type="textarea" name="News" placeholder="Enter news here" required="required">{{ url }}</textarea>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Analyze</button><br>
+        {{ loc }}<br>
+        {{ pred }}<br>
+        {{ sentiment }}<br>
+        {{ w_count }}<br>
+         <h5>Translated text:</h5>
+       <textarea placeholder="No text translated" readonly>{{ trans }}</textarea>
+    </form>
+
+   <br>
+   <br>
+ </div>
+
+</body>
+</html>
