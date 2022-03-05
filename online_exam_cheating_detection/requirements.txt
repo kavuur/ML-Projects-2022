@@ -1,0 +1,3 @@
+Flask
+tensorflow-cpu
+opencv-python

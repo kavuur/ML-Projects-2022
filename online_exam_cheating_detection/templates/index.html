@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block body %}
+   <div class="image-bg" >
+       <div class="container p-5 ">
+    <h3 class="text-dark font-weight-boldest text-center p-5  pb-4" >EXAM CHEATING DETECTION USING VGG16</h3>
+        <div class="card rounded-0 shadow-lg " style="height: 100px; margin-bottom: 20px; background-color: rgba(242,242,242,0.56)">
+            <div class="card-body">
+                <form action="{{ url_for('upload') }}" enctype=multipart/form-data role="form" method=post id="formDiagnose">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input class="form-control w-100 rounded-0" name="file" type="file">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-dark w-100 rounded-0" type="submit"> Detect</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card shadow-lg rounded-0" style="background-color: rgba(242,242,242,0.55)">
+            <div class="card-body " style="height: 250px">
+                <div class="text-center">
+                    <nav class="text-center d-flex justify-content-around" style="width: 500px">
+                    <div class="m-2 d-flex flex-column">
+                        <a href="{{ url_for('display',id='c') }}" class="btn btn-dark active" >Cheating Instances</a>
+                        <h3 style="font-weight: bolder">{{ count.c }}</h3>
+                    </div>
+                    <div class="m-2 d-flex flex-column">
+                        <a href="{{ url_for('display',id='nc') }}" class="btn btn-dark ">Non Cheating Instances</a>
+                        <h3 style="font-weight: bolder" class="">{{ count.nc }}</h3>
+                    </div>
+                </nav>
+                </div>
+                <div class="border-top">
+                    <div class="card rounded-0">
+                        <div class="card-body">
+                        {% if images_cheating != None %}
+                        <div class="card-title p-3" style="font-size: 12px; font-weight: 700">{{ images_cheating | length }} {{ title }}  Instances</div>
+                        {% endif %}
+                            <div class="row" style="height: 500px; overflow-y: scroll">
+                            {% if images_cheating!=None or count!=0 %}
+                                {% for img in images_cheating %}
+                                <div class="col-md-3">
+                                   <div class="text-center"><div class="text-center" style="height: 200px; width: 100%;">
+                                        <img src="{{ url_for('static',filename='processed/'+img.url) }}" class="img-thumbnail" style="width: 100%; height: auto">
+                                   </div></div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   </div>
+{% endblock %}
